@@ -1,4 +1,5 @@
 /**app.wxss**/
+
 .container {
   height: 100%;
   display: flex;
@@ -6,4 +7,28 @@
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-} 
+}
+
+.layout {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+.layout.row {
+  flex-direction: row;
+}
+
+.layout.col {
+  flex-direction: column;
+}
+
+.layout.center {
+  align-items: center;
+}
+
+.layout.mid {
+  justify-content: center;
+}

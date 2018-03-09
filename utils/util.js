@@ -17,6 +17,14 @@ const formatDate = date => {
   return [year, month, day].map(formatNumber).join('/')
 }
 
+const formatTime = (h, m, s) => {
+  const hour = h
+  const minute = m
+  const second = s
+
+  return second ? [hour, minute, second].map(formatNumber).join(':') : [hour, minute].map(formatNumber).join(':')
+}
+
 const formatYearMonth = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -42,10 +50,19 @@ const parseDate = dateStr => {
   return new Date(year, month - 1, day);
 }
 
+const parseTime = timeStr => {
+  var str = timeStr.split(/\:/);
+  var h = str[0] ? parseInt(str[0]) : 0;
+  var m = str[1] ? parseInt(str[1]) : 0;
+  var s = str[2] ? parseInt(str[2]) : 0;
+  return {h, m, s}
+}
+
 module.exports = {
   formatDateTime: formatDateTime,
   formatDate: formatDate,
   formatYearMonth: formatYearMonth,
   getMaxDateInMonth: getMaxDateInMonth,
-  parseDate: parseDate
+  parseDate: parseDate,
+  formatTime: formatTime
 }

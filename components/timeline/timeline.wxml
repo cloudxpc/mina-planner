@@ -1,0 +1,13 @@
+<!--components/timeline/timeline.wxml-->
+
+<scroll-view class='wrapper' scroll-y="true">
+  <view class="item" wx:for="{{lines}}" wx:key="t-{{item.timeStr}}">
+    <text class='time'>{{item.timeStr}}</text>
+    <view class='content-list'>
+      <view class='content' wx:for="{{item.contents}}" wx:for-item="content" wx:for-index="cidx" wx:key="t-c-{{content.timeStr}}">
+        <text>{{content.timeStr}}</text>
+        <view data-src="{{content.src}}" bindtap='contentClick'>{{content.src}}</view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

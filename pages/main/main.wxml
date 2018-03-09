@@ -1,9 +1,12 @@
 <!--pages/main/main.wxml-->
-<view class='page'>
+<view class='layout col page'>
   <view class='calendar'>
     <calendar bindselect="dateSelected"></calendar>
   </view>
-  <view class='scheduler'>
-    <recorder></recorder>
+  <view class='timeline layout col'>
+    <timeline style="height: 100%;" items="{{items}}" bindcontentclick="playAudio"></timeline>
+  </view>
+  <view class='footer'>
+    <view bindlongpress="startRecord" bindtouchend="stopRecord" style='border: 1rpx solid black;'>录音</view>
   </view>
 </view>
