@@ -1,0 +1,9 @@
+<!--pages/main/main.wxml-->
+<view class='page'>
+  <view class='calendar'>
+    <calendar bindselect="dateSelected"></calendar>
+  </view>
+  <view class='scheduler'>
+    <recorder></recorder>
+  </view>
+</view>

@@ -1,0 +1,19 @@
+/* pages/main/main.wxss */
+
+.page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  box-sizing: border-box;
+  overflow: hidden;
+} 
+
+.calendar {
+  flex: 0 0 auto;
+}
+
+.scheduler {
+  flex: 1 1 auto;
+}

@@ -1,0 +1,122 @@
+/* templates/calendar.wxss */
+
+.wrapper {
+  padding: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.cell {
+  margin: 5rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.gray {
+  color: #ddd;
+}
+
+.active {
+  border-radius: 50%;
+  background-color: #dc143c;
+  color: #fff;
+}
+
+.arrow-btn {
+  padding-left: 50rpx;
+  padding-right: 50rpx;
+}
+
+.arrow {
+  border: 5rpx solid #dc143c;
+  width: 20rpx;
+  height: 20rpx;
+  transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+}
+
+.previous {
+  border-right-width: 0rpx;
+  border-top-width: 0rpx;
+}
+
+.next {
+  border-left-width: 0rpx;
+  border-bottom-width: 0rpx;
+}
+
+.control {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+}
+
+.control-left {
+  justify-content: flex-start;
+}
+
+.control-right {
+  justify-content: flex-end;
+}
+
+.toggle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-left: 5rpx;
+  padding-right: 5rpx;
+}
+
+.icon-reverse {
+  transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+}
+
+.btn {
+  color: #dc143c;
+  white-space: nowrap;
+}
+
+.btn:active {
+  color: #600;
+}
+
+.inline-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  white-space: nowrap;
+}
+
+.column {
+  display: inline-block;
+}

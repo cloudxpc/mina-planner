@@ -1,0 +1,47 @@
+<!--templates/calendar.wxml-->
+<view class='wrapper'>
+  <view class='title'>
+    <view class='control control-left'>
+      <text class='btn' bindtap='showToday'>今天</text>
+    </view>
+    <view class='arrow-btn' bindtap='previousMonth'>
+      <icon class='arrow previous'></icon>
+    </view>
+    <picker mode="date" fields="month" value="{{currentYear + '-' + (currentMonth < 10 ? ('0' + currentMonth) : currentMonth)}}" start="1900-01" end="2050-12" bindchange="bindDateChange">
+      <view>
+        <text style='display: inline-block; width: 100rpx; text-align: center;'>{{currentYear}}</text>
+        <text>年</text>
+        <text style='display: inline-block; width: 50rpx; text-align: center;'>{{currentMonth}}</text>
+        <text>月</text>
+      </view>
+    </picker>
+    <view class='arrow-btn' bindtap='nextMonth'>
+      <icon class='arrow next'></icon>
+    </view>
+    <view class='control control-right'>
+      <view class='toggle' bindtap='toggle'>
+        <icon class='{{inline ? "":"icon-reverse"}}' type='download' color='#dc143c'></icon>
+      </view>
+    </view>
+  </view>
+  <scroll-view wx:if="{{inline}}" scroll-x="true" scroll-into-view="{{inlineToView}}" scroll-with-animation="true" class='inline-content'>
+    <view wx:for="{{inlineItems}}" wx:key="ic-{{index}}" class='column' id="ic-{{item.day}}">
+      <view class='cell'>{{item.week}}</view>
+      <view class='cell {{selectedDate == item.date ? "active" : ""}}' data-text='{{item.dateStr}}' bindtap='cellClick'>{{item.day}}</view>
+    </view>
+  </scroll-view>
+  <view wx:else>
+    <view class='row'>
+      <view class='cell'>日</view>
+      <view class='cell'>一</view>
+      <view class='cell'>二</view>
+      <view class='cell'>三</view>
+      <view class='cell'>四</view>
+      <view class='cell'>五</view>
+      <view class='cell'>六</view>
+    </view>
+    <view wx:for="{{items}}" wx:for-item="row" wx:key="r-{{index}}" class='row'>
+      <view wx:for="{{row}}" wx:key="c-{{index}}" class='cell {{item.month != currentMonth ? "gray" : ""}} {{selectedDate == item.date ? "active" : ""}}' data-text='{{item.dateStr}}' bindtap='cellClick'>{{item.day}}</view>
+    </view>
+  </view>
+</view>
