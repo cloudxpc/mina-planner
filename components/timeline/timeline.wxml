@@ -5,8 +5,11 @@
     <text class='time'>{{item.timeStr}}</text>
     <view class='content-list'>
       <view class='content' wx:for="{{item.contents}}" wx:for-item="content" wx:for-index="cidx" wx:key="t-c-{{content.timeStr}}">
-        <text>{{content.timeStr}}</text>
-        <view data-src="{{content.src}}" bindtap='contentClick'>{{content.src}}</view>
+        <text class='content-time'>{{content.timeStr}}</text>
+         <view data-src="{{content.src}}" bindtap='contentClick'>
+         {{content.src}}
+         </view> 
+        <audio id="myAudio" src="{{content.src}}" name="" author="" controls="true"></audio>
       </view>
     </view>
   </view>

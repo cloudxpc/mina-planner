@@ -7,15 +7,39 @@
 
 .calendar {
   flex: 0 0 auto;
+  border-bottom: 1rpx solid #dc143c;
 }
 
 .timeline {
   flex: 1 1 auto;
   height: 100%;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
 }
 
 .footer {
   flex: 0 0 auto;
   border-top: 1rpx solid #dc143c;
-  padding: 10rpx;
+  padding: 0 10rpx;
+  justify-content: space-around;
+  height: 100rpx;
+}
+
+.btn {
+  color: #dc143c;
+  flex: 1 1 auto;
+}
+
+.btn:active {
+  /* color: #09bb07; */
+  color: #600;
+}
+
+.divider {
+  box-sizing: border-box;
+  border-left: 1rpx solid #eeeeee;
+  margin-left: 10rpx;
+  padding-left: 10rpx;
+  height: 60rpx;
+  align-self: center;
 }

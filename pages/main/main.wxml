@@ -6,7 +6,13 @@
   <view class='timeline layout col'>
     <timeline style="height: 100%;" items="{{items}}" bindcontentclick="playAudio"></timeline>
   </view>
-  <view class='footer'>
-    <view bindlongpress="startRecord" bindtouchend="stopRecord" style='border: 1rpx solid black;'>录音</view>
+  <view class='footer layout row'>
+    <view class='btn layout row center mid' bindtouchstart="startRecord" bindtouchend="stopRecord">语音</view>
+    <view class='divider'></view>
+    <view class='btn layout row center mid'>照片</view>
+    <view class='divider'></view>
+    <view class='btn layout row center mid'>视频</view>
+    <view class='divider'></view>
+    <view class='btn layout row center mid'>文字</view>
   </view>
 </view>

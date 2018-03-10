@@ -1,10 +1,11 @@
 // pages/main/main.js
 
-const recorder = require('../../utils/recorder.js');
+// const recorder = require('../../utils/recorder.js');
 const audioContext = require('../../utils/audiocontext.js');
 const util = require('../../utils/util.js');
 
 Page({
+  recorderManager: null,
 
   /**
    * 页面的初始数据
@@ -24,7 +25,16 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.recorderManager = wx.getRecorderManager();
+    this.recorderManager.onStart(() => {
+      wx.showLoading({
+        title: '正在录音'
+      });
+    });
+    this.recorderManager.onStop((res) => {
+      wx.hideLoading();
+      this.addItem(res.tempFilePath);
+    });
   },
 
   /**
@@ -72,24 +82,25 @@ Page({
   dateSelected: function (e) {
     console.log(e.detail);
   },
-  startRecord: function () {
-    recorder.start((res) => {
-      var date = new Date();
-      var items = this.data.items.slice(0);
-      items.push({
-        h: date.getHours(),
-        m: date.getMinutes(),
-        s: date.getSeconds(),
-        timeStr: util.formatTime(date.getHours(), date.getMinutes(), date.getSeconds()),
-        src: res.tempFilePath
-      });
-      this.setData({
-        items: items
-      });
+  addItem: function (tempFilePath){
+    var date = new Date();
+    var items = this.data.items.slice(0);
+    items.push({
+      h: date.getHours(),
+      m: date.getMinutes(),
+      s: date.getSeconds(),
+      timeStr: util.formatTime(date.getHours(), date.getMinutes(), date.getSeconds()),
+      src: tempFilePath
+    });
+    this.setData({
+      items: items
     });
   },
+  startRecord: function () {
+    this.recorderManager.start();
+  },
   stopRecord: function () {
-    recorder.stop();
+    this.recorderManager.stop();
   },
   playAudio: function (e) {
     audioContext.play(e.detail, () => {
