@@ -1,5 +1,0 @@
-<!--components/recorder/recorder.wxml-->
-<view class='recorder'>
-  <view class='btn' bindlongpress="startRecord" bindtouchend="stopRecord">录音</view>
-  <view wx:for="{{audios}}" wx:key="{{item}}" bindtap='playAudio' data-src="{{item}}">{{item}}</view>
-</view>

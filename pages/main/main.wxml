@@ -7,12 +7,24 @@
     <timeline style="height: 100%;" items="{{items}}" bindcontentclick="playAudio"></timeline>
   </view>
   <view class='footer layout row'>
-    <view class='btn layout row center mid' bindtouchstart="startRecord" bindtouchend="stopRecord">语音</view>
+    <view class='btn layout row center mid' bindtouchstart="startRecord" bindtouchend="stopRecord">
+      <i class="fas fa-microphone"></i>
+      <text style="padding-left: 10rpx;">语音</text>
+    </view>
     <view class='divider'></view>
-    <view class='btn layout row center mid'>照片</view>
+    <view class='btn layout row center mid'>
+      <i class="fas fa-camera"></i>
+      <text style="padding-left: 10rpx;">照片</text>
+    </view>
     <view class='divider'></view>
-    <view class='btn layout row center mid'>视频</view>
+    <view class='btn layout row center mid'>
+      <i class="fas fa-video-camera"></i>
+      <text style="padding-left: 10rpx;">视频</text>
+    </view>
     <view class='divider'></view>
-    <view class='btn layout row center mid'>文字</view>
+    <view class='btn layout row center mid'>
+      <i class="fas fa-font"></i>
+      <text style="padding-left: 10rpx;">文字</text>
+    </view>
   </view>
 </view>

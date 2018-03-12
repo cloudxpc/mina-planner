@@ -1,7 +1,6 @@
 {
   "usingComponents": {
     "calendar": "../../components/calendar/calendar",
-    "timeline": "../../components/timeline/timeline",
-    "recorder": "../../components/recorder/recorder"
+    "timeline": "../../components/timeline/timeline"
   }
 }

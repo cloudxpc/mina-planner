@@ -8,8 +8,7 @@
         <text class='content-time'>{{content.timeStr}}</text>
          <view data-src="{{content.src}}" bindtap='contentClick'>
          {{content.src}}
-         </view> 
-        <audio id="myAudio" src="{{content.src}}" name="" author="" controls="true"></audio>
+         </view>
       </view>
     </view>
   </view>

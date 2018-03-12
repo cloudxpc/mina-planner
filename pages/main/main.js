@@ -1,17 +1,13 @@
 // pages/main/main.js
 
-// const recorder = require('../../utils/recorder.js');
-const audioContext = require('../../utils/audiocontext.js');
 const util = require('../../utils/util.js');
 
 Page({
-  recorderManager: null,
-
   /**
    * 页面的初始数据
    */
   data: {
-    items:[]
+    items: []
   },
 
   /**
@@ -25,16 +21,8 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    this.recorderManager = wx.getRecorderManager();
-    this.recorderManager.onStart(() => {
-      wx.showLoading({
-        title: '正在录音'
-      });
-    });
-    this.recorderManager.onStop((res) => {
-      wx.hideLoading();
-      this.addItem(res.tempFilePath);
-    });
+    this.initRecorderManager();
+    this.initAudioContext();
   },
 
   /**
@@ -78,11 +66,47 @@ Page({
   onShareAppMessage: function () {
 
   },
-
+  initRecorderManager: function () {
+    this.recorderManager = wx.getRecorderManager();
+    this.recorderManager.onStart(() => {
+      wx.showLoading({
+        title: '正在录音'
+      });
+    });
+    this.recorderManager.onStop((res) => {
+      wx.hideLoading();
+      this.addItem(res.tempFilePath);
+    });
+  },
+  startRecord: function () {
+    this.recorderManager.start();
+  },
+  stopRecord: function () {
+    this.recorderManager.stop();
+  },
+  initAudioContext: function () {
+    this.audioContext = wx.createInnerAudioContext();
+    this.audioContext.onPlay(() => {
+      
+    });
+    this.audioContext.onError((res) => {
+      wx.showToast({
+        title: res.errMsg + ' ' + res.errCode,
+        icon: 'none'
+      });
+    });
+  },
+  playAudio: function (e) {
+    this.audioContext.src = e.detail;
+    this.audioContext.play();
+  },
+  stopAudio: function () {
+    this.audioContext.stop();
+  },
   dateSelected: function (e) {
     console.log(e.detail);
   },
-  addItem: function (tempFilePath){
+  addItem: function (tempFilePath) {
     var date = new Date();
     var items = this.data.items.slice(0);
     items.push({
@@ -94,17 +118,6 @@ Page({
     });
     this.setData({
       items: items
-    });
-  },
-  startRecord: function () {
-    this.recorderManager.start();
-  },
-  stopRecord: function () {
-    this.recorderManager.stop();
-  },
-  playAudio: function (e) {
-    audioContext.play(e.detail, () => {
-      console.log('start')
     });
   }
 })
