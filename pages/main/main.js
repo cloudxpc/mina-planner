@@ -75,6 +75,7 @@ Page({
     });
     this.recorderManager.onStop((res) => {
       wx.hideLoading();
+      this.uploadItem(res.tempFilePath);
       this.addItem(res.tempFilePath);
     });
   },
@@ -118,6 +119,28 @@ Page({
     });
     this.setData({
       items: items
+    });
+  },
+  uploadItem: function (tempFilePath){
+    var uploadTask = wx.uploadFile({
+      url: 'https://www.uutic.com/plannerservice/api/upload',
+      filePath: tempFilePath,
+      name: 'file',
+      header: {
+        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTIzIiwiaXNzIjoidXV0aWMiLCJwbGFuX2lkIjoiMjk4Zjk3MjUtM2U1NS00ZTc3LTllZDUtNTc5ODc1NDgzOTQ1In0.2MQA-qdbuDgEae8Astm55oxjZw0CmHQEk6bdtGjeB-g"
+      },
+      success: function (res) {
+        console.log(res.data)
+      },
+      fail: function(res){
+        console.log(res)
+      }
+    });
+
+    uploadTask.onProgressUpdate((res) => {
+      console.log('上传进度', res.progress)
+      console.log('已经上传的数据长度', res.totalBytesSent)
+      console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
     });
   }
 })
