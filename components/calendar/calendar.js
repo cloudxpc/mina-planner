@@ -3,6 +3,7 @@
 const util = require('../../utils/util.js');
 
 Component({
+  externalClasses: ['grid-icon', 'line-icon'],
   /**
    * 组件的属性列表
    */
@@ -26,7 +27,7 @@ Component({
     selectedDate: null,
     items: [],
     inlineItems: [],
-    inline: false,
+    inline: true,
     inlineToView: ''
   },
 

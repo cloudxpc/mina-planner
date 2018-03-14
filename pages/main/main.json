@@ -2,5 +2,6 @@
   "usingComponents": {
     "calendar": "../../components/calendar/calendar",
     "timeline": "../../components/timeline/timeline"
-  }
+  },
+  "enablePullDownRefresh": true
 }

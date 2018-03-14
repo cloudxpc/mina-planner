@@ -19,8 +19,8 @@
       <icon class='arrow next'></icon>
     </view>
     <view class='control control-right'>
-      <view class='toggle' bindtap='toggle'>
-        <icon class='{{inline ? "":"icon-reverse"}}' type='download' color='#dc143c'></icon>
+      <view class='toggle btn' bindtap='toggle'>
+        <i class="{{inline ? 'grid-icon' : 'line-icon'}}"></i>
       </view>
     </view>
   </view>

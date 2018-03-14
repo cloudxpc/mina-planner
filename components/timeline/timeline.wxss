@@ -47,15 +47,26 @@
 .content {
   /* max-width: 200rpx; */
   box-sizing: border-box;
-  border: 1rpx solid brown;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
   overflow: hidden;
+  margin-bottom: 10rpx;
 }
 
 .content-time {
   font-size: 11pt;
   color: #888888;
+}
+
+.content-box {
+  height: 100rpx;
+  width: 100rpx;
+  background-color: #eeeeee;
+  border-radius: 5%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }

@@ -2,6 +2,8 @@
 
 const util = require('../../utils/util.js');
 
+const token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTIzIiwiaXNzIjoidXV0aWMiLCJwbGFuX2lkIjoiMjk4Zjk3MjUtM2U1NS00ZTc3LTllZDUtNTc5ODc1NDgzOTQ1In0.2MQA-qdbuDgEae8Astm55oxjZw0CmHQEk6bdtGjeB-g";
+
 Page({
   /**
    * 页面的初始数据
@@ -14,7 +16,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
   },
 
   /**
@@ -23,6 +24,7 @@ Page({
   onReady: function () {
     this.initRecorderManager();
     this.initAudioContext();
+    this.loadItems();
   },
 
   /**
@@ -50,7 +52,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.loadItems();
+    wx.stopPullDownRefresh();
   },
 
   /**
@@ -76,7 +79,6 @@ Page({
     this.recorderManager.onStop((res) => {
       wx.hideLoading();
       this.uploadItem(res.tempFilePath);
-      this.addItem(res.tempFilePath);
     });
   },
   startRecord: function () {
@@ -88,7 +90,13 @@ Page({
   initAudioContext: function () {
     this.audioContext = wx.createInnerAudioContext();
     this.audioContext.onPlay(() => {
-      
+      this.changeItemState(this.audioContext.src);
+    });
+    this.audioContext.onStop(() => {
+      this.changeItemState();
+    });
+    this.audioContext.onEnded(() => {
+      this.changeItemState();
     });
     this.audioContext.onError((res) => {
       wx.showToast({
@@ -107,32 +115,35 @@ Page({
   dateSelected: function (e) {
     console.log(e.detail);
   },
-  addItem: function (tempFilePath) {
-    var date = new Date();
-    var items = this.data.items.slice(0);
-    items.push({
+  createItem: function (date, tempFilePath) {
+    return {
       h: date.getHours(),
       m: date.getMinutes(),
       s: date.getSeconds(),
       timeStr: util.formatTime(date.getHours(), date.getMinutes(), date.getSeconds()),
-      src: tempFilePath
-    });
+      src: tempFilePath,
+      isPlaying: false
+    };
+  },
+  addItem: function (tempFilePath) {
+    var items = this.data.items.slice(0);
+    items.push(this.createItem(new Date(), tempFilePath));
     this.setData({
       items: items
     });
   },
-  uploadItem: function (tempFilePath){
+  uploadItem: function (tempFilePath) {
     var uploadTask = wx.uploadFile({
       url: 'https://www.uutic.com/plannerservice/api/upload',
       filePath: tempFilePath,
       name: 'file',
       header: {
-        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMTIzIiwiaXNzIjoidXV0aWMiLCJwbGFuX2lkIjoiMjk4Zjk3MjUtM2U1NS00ZTc3LTllZDUtNTc5ODc1NDgzOTQ1In0.2MQA-qdbuDgEae8Astm55oxjZw0CmHQEk6bdtGjeB-g"
+        "Authorization": token
       },
-      success: function (res) {
-        console.log(res.data)
+      success: res => {
+        this.addItem(tempFilePath);
       },
-      fail: function(res){
+      fail: function (res) {
         console.log(res)
       }
     });
@@ -142,5 +153,50 @@ Page({
       console.log('已经上传的数据长度', res.totalBytesSent)
       console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
     });
+  },
+  loadItems: function () {
+    wx.showLoading({
+      title: '加载中',
+    });
+    var requestTask = wx.request({
+      url: 'https://www.uutic.com/plannerservice/api/plan',
+      header: {
+        "Authorization": token
+      },
+      success: (res) => {
+        if (res.data && res.data.length) {
+          var items = [];
+          var data = res.data.sort((a, b) => { return a.timestamp > b.timestamp; });
+          for (var i = 0; i < data.length; i++) {
+            items.push(this.createItem(new Date(data[i].timestamp), "http://resource.uutic.com/" + data[i].resourceName));
+          }
+          this.setData({
+            items: items
+          });
+        }
+      },
+      complete: () => {
+        wx.hideLoading();
+      }
+    });
+
+    // requestTask.abort();
+  },
+  changeItemState: function (src) {
+    for (var i = 0; i < this.data.items.length; i++) {
+      if (this.data.items[i].isPlaying) {
+        var prop = 'items[' + i + '].isPlaying';
+        this.setData({
+          [prop]: false
+        });
+      }
+
+      if (src && this.data.items[i].src === src) {
+        var prop = 'items[' + i + '].isPlaying';
+        this.setData({
+          [prop]: true
+        });
+      }
+    }
   }
 })

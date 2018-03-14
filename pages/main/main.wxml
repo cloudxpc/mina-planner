@@ -1,10 +1,10 @@
 <!--pages/main/main.wxml-->
 <view class='layout col page'>
   <view class='calendar'>
-    <calendar bindselect="dateSelected"></calendar>
+    <calendar bindselect="dateSelected" grid-icon="far fa-calendar" line-icon="far fa-calendar-minus-o"></calendar>
   </view>
   <view class='timeline layout col'>
-    <timeline style="height: 100%;" items="{{items}}" bindcontentclick="playAudio"></timeline>
+    <timeline style="height: 100%;" items="{{items}}" bindcontentclick="playAudio" play-icon="far fa-play-circle" stop-icon="far fa-stop-circle"></timeline>
   </view>
   <view class='footer layout row'>
     <view class='btn layout row center mid' bindtouchstart="startRecord" bindtouchend="stopRecord">

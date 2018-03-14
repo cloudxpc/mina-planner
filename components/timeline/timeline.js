@@ -3,6 +3,7 @@
 const util = require('../../utils/util.js');
 
 Component({
+  externalClasses: ['play-icon', 'stop-icon'],
   /**
    * 组件的属性列表
    */
@@ -60,8 +61,8 @@ Component({
       });
     },
     contentClick: function (e) {
-      if (e.target.dataset.src) {
-        this.triggerEvent('contentclick', e.target.dataset.src);
+      if (e.currentTarget.dataset.src) {
+        this.triggerEvent('contentclick', e.currentTarget.dataset.src);
       }
     }
   }
